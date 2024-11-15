@@ -1,0 +1,23 @@
+application/json
+
+
+#set($inputRoot = $input.path('$'))
+
+{
+    "error": $inputRoot.error,
+    #if($inputRoot.error)
+    #set($context.responseOverride.status = 400)
+    "errors": $inputRoot.errors
+    #else
+    "results": $inputRoot.results,
+    "response": [
+        #foreach($resp in $inputRoot.response)
+        {
+            #foreach($k in $resp.keySet())
+            "$k":"$util.escapeJavaScript($resp.get($k))"#if($foreach.hasNext),#end
+            #end
+        }#if($foreach.hasNext),#end
+        #end
+    ]
+    #end
+}

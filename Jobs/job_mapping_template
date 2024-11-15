@@ -1,0 +1,65 @@
+#set($inputRoot = $input.path('$'))
+
+#set($allowedKeys = [
+    "customer_id",
+    "project_id",
+    "job_type",
+    "subtitle",
+    "status",
+    "status_id",
+    "status_workflow_id",
+    "start_time",
+    "end_time",
+    "due_date",
+    "billing",
+    "notes",
+    "field_notes",
+    "location",
+    "generate_invoice",
+    "type",
+    "is_template",
+    "in_progress_status_log",
+    "template_id",
+    "hazardco_swms_id",
+    "maintenance_agreement_id",
+    "maintenance_occurrence_id",
+    "recurring_parent_id",
+    "task_category_id",
+    "location_id",
+    "customer_contact_id",
+    "assignments",
+    "customfields",
+    "visits",
+    "tags"
+])
+
+#set($objects_array_data_keys = ['assignments','customfields','visits'])
+#set($array_data_keys = ['tags'])
+
+{
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        "$key":
+        #if($objects_array_data_keys.contains($key))
+            [
+                #foreach($input_data in $inputRoot.get($key))
+                {
+                    #foreach($k in $input_data.keySet())
+                    "$k": "$util.escapeJavaScript($input_data.get($k))"#if($foreach.hasNext),#end
+                    #end
+                }#if($foreach.hasNext),#end
+                #end
+            ]
+        #elseif($array_data_keys.contains($key))
+            [
+                #foreach($input_data in $inputRoot.get($key))
+                "$util.escapeJavaScript($input_data)"#if($foreach.hasNext),#end
+                #end
+            ]
+        #else
+        ## Output other keys
+        "$util.escapeJavaScript($inputRoot.get($key))"
+        #end
+    #end#if($foreach.hasNext),#end
+#end
+}

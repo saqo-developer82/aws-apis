@@ -1,0 +1,9 @@
+#set($inputRoot = $input.path('$'))
+
+{
+    "error": true#if($inputRoot.contains("errors")),
+    "errors": $inputRoot.get("errors")
+    #end
+}
+
+application/json

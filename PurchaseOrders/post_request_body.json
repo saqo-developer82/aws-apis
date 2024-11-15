@@ -1,0 +1,116 @@
+{
+	"customer_id": 58499,
+	"title": "Test invoice",
+	"tax_rate": 10,
+	"display_settings": {
+		"show_payment_button": true,
+		"show_signature_button": true
+	},
+	"line_items": [
+        {
+            "line_number": 0,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 1",
+                    "id": 360
+                }
+            ]
+        },
+        {
+            "line_number": 1,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 2",
+                    "id": 361
+                }
+            ]
+        }
+    ],
+    "optional_line_items": [
+        {
+            "line_number": 0,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 1",
+                    "id": 360
+                }
+            ]
+        },
+        {
+            "line_number": 1,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 2",
+                    "id": 361
+                }
+            ]
+        }
+    ],
+    "not_optional_line_items": [
+        {
+            "line_number": 0,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 1",
+                    "id": 360
+                }
+            ]
+        },
+        {
+            "line_number": 1,
+            "line_type": "item",
+            "line_title": "",
+            "line_description": "",
+            "line_price_visibility": "all",
+            "line_visibility": "all",
+            "line_components": [
+                {
+                    "description": "Line Item 2",
+                    "id": 361
+                }
+            ]
+        }
+    ],
+	"expenses": [
+		{
+			"amount": 10,
+			"title": "Expense 1",
+			"type": "service"
+		},
+		{
+			"amount": 20,
+			"title": "Expense 2",
+			"type": "service"
+		},
+		{
+			"amount": 30,
+			"title": "Expense 3",
+			"type": "product"
+		}
+	]
+}

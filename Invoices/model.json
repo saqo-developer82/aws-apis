@@ -1,0 +1,173 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Invoice",
+    "type": "object",
+    "properties": {
+        "is_template": { "default": false },
+        "status": { "default": 3 },
+        "title": { "default": "string" },
+        "notes": { "default": "string" },
+        "tax_rate ": { "default": "0.00" },
+        "due_date": { "default": 1234567890 },
+        "invoiced_date": { "default": 1234567890 },
+        "author_id": { "default": 1 },
+        "location_id": { "default": 1 },
+        "contract_id": { "default": 1 },
+        "commission_type": { "default": 0 },
+        "commission_percent": { "default": 0 },
+        "invoice_use_logo": { "default": false },
+        "invoice_show_line_item_unit_price": { "default": false },
+        "invoice_show_line_item_qty": { "default": false },
+        "invoice_show_line_item_taxed": { "default": false },
+        "invoice_show_line_item_total": { "default": false },
+        "invoice_show_line_item_desc": { "default": false },
+        "invoice_show_line_item_sku": { "default": false },
+        "invoice_show_total_tax": { "default": false },
+        "invoice_show_job_title": { "default": false },
+        "invoice_show_job_location": { "default": false },
+        "invoice_show_assigned_members": { "default": false },
+        "invoice_show_author": { "default": false },
+        "invoice_show_service_address": { "default": false },
+        "invoice_contract_signature_lines": { "default": 0 },
+        "invoice_amount_due_display_type": { "default": "remaining_balance|set_amount|percentage_of_total|none" },
+        "invoice_amount_due_display_value": { "default": "string" },
+        "invoice_pdf_title": { "default": "string" },
+        "estimate_status": { "default": 0 },
+        "theme_id": { "default": 0 },
+        "internal_notes": { "default": "string" },
+        "reference": { "default": "string" },
+        "hvi": { "default": "0" },
+        "qbd_class_id": { "default": 0 },
+        "qbd_discount_id": { "default": 0 },
+        "company_profile_id": { "default": 0 },
+        "maintenance_agreement_id": { "default": 0 },
+        "maintenance_occurrence_id": { "default": 0 },
+        "occurrence_date": { "default": 1234567890 },
+        "job_id": { "default": 0 },
+        "customer_id": { "default": 0 },
+        "qbo_sales_tax_code_id": { "default": 0 },
+        "display_settings": {
+            "default": {
+                "show_payment_button": false,
+                "show_signature_button": false,
+                "show_company_title": false,
+                "is_customer_phone_visible": false,
+                "is_modified_customer": false,
+                "modified_customer_display_name": "string",
+                "modified_customer_display_address": "string"
+            }
+        },
+        "expenses": {
+            "default": [
+                {
+                    "amount": "0",
+                    "description": "string",
+                    "title": "string",
+                    "type": "service|product"
+                }
+            ]
+        },
+        "options": {
+            "default": [
+                {
+                    "is_selected": false,
+                    "is_default": false,
+                    "group_number": 1,
+                    "title": "string",
+                    "description": "string",
+                    "photo_id": 0
+                }
+            ]
+        },
+        "add_on_options": {
+            "default": [
+                {
+                    "is_selected": false,
+                    "is_default": false,
+                    "group_number": 1,
+                    "title": "string",
+                    "description": "string",
+                    "photo_id": 0
+                }
+            ]
+        },
+        "line_items": {
+            "default": [
+                {
+                    "is_selected": false,
+                    "is_optional": false,
+                    "group_number": 1,
+                    "commission_amount": 0,
+                    "hvi_amount": 0,
+                    "line_components": [
+                        {
+                            "description": "string",
+                            "xero_sales_account": "string",
+                            "xero_tax_account": "string",
+                            "tax_rate": "0.00",
+                            "qbo_line_item_id": 0,
+                            "qbo_sales_tax_code_id": 0,
+                            "file_ids": [1,2],
+                            "id": 1,
+                            "price_update_method": "set_price_manually|automatic_markup|use_cmp_pricing",
+                            "automatic_markup_percentage": "0",
+                            "serialized_inventory_id": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        "optional_line_items": {
+            "default": [
+                {
+                    "is_selected": false,
+                    "is_optional": false,
+                    "group_number": 1,
+                    "commission_amount": 0,
+                    "hvi_amount": 0,
+                    "line_components": [
+                        {
+                            "description": "string",
+                            "xero_sales_account": "string",
+                            "xero_tax_account": "string",
+                            "tax_rate": "0.00",
+                            "qbo_line_item_id": 0,
+                            "qbo_sales_tax_code_id": 0,
+                            "file_ids": [1,2],
+                            "id": 1,
+                            "price_update_method": "set_price_manually|automatic_markup|use_cmp_pricing",
+                            "automatic_markup_percentage": "0",
+                            "serialized_inventory_id": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        "not_optional_line_items": {
+            "default": [
+                {
+                    "is_selected": false,
+                    "is_optional": false,
+                    "group_number": 1,
+                    "commission_amount": 0,
+                    "hvi_amount": 0,
+                    "line_components": [
+                        {
+                            "description": "string",
+                            "xero_sales_account": "string",
+                            "xero_tax_account": "string",
+                            "tax_rate": "0.00",
+                            "qbo_line_item_id": 0,
+                            "qbo_sales_tax_code_id": 0,
+                            "file_ids": [1,2],
+                            "id": 1,
+                            "price_update_method": "set_price_manually|automatic_markup|use_cmp_pricing",
+                            "automatic_markup_percentage": "0",
+                            "serialized_inventory_id": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

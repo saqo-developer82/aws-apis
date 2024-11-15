@@ -1,0 +1,26 @@
+#set($inputRoot = $input.path('$'))
+
+#set($allowedKeys = [
+    "user_id",
+    "clock_in_title",
+    "clock_out_title",
+    "clock_in_method",
+    "clock_out_method",
+    "clock_in_time",
+    "clock_out_time",
+    "clock_in_notes",
+    "clock_out_notes",
+    "clock_in_location",
+    "clock_out_location",
+    "job_id",
+    "subtask_id",
+    "type"
+])
+
+{
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+    "$key":"$util.escapeJavaScript($inputRoot.get($key))"
+    #end#if($foreach.hasNext),#end
+#end
+}

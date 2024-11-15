@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Location",
+    "type": "object",
+    "properties": {
+        "object_type": { "type": "string" },
+        "object_id": { "type": "integer" },
+        "title": { "type": "string" },
+        "address_1 ": { "type": ["string", "null"] },
+        "address_2": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "state": { "type": ["string", "null"] },
+        "zip_code": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] },
+        "is_main_location": { "type": ["boolean", "null"] },
+        "is_primary_location": { "type": ["boolean", "null"] },
+        "primary_customer_contact_id": { "type": ["integer", "null"] }
+    }
+}

@@ -1,0 +1,18 @@
+$input.json("$")
+
+#set ($Integer = 0)
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#elseif($Integer.parseInt($limit) > 100)
+  #set($limit = "100")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+
+#set($context.requestOverride.querystring.deleted = "false")

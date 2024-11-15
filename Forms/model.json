@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Form",
+    "type": "object",
+    "properties": {
+        "template_id": {},
+        "parent_type": {},
+        "status": {},
+        "fields": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {},
+                    "type": {},
+                    "value": {},
+                    "position": {}
+                }
+            }
+        }
+    }
+}

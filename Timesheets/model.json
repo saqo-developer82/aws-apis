@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Timesheet",
+    "type": "object",
+    "properties": {
+        "user_id": { "type": "integer" },
+        "clock_in_title": { "type": "string" },
+        "clock_out_title": { "type": ["string", "null"] },
+        "clock_in_method": { "type": ["string", "null"] },
+        "clock_out_method": { "type": ["string", "null"] },
+        "clock_in_time": { "type": ["number","null"] },
+        "clock_out_time": { "type": ["number","null"] },
+        "clock_in_notes": { "type": ["string","null"] },
+        "clock_out_notes": { "type": ["string","null"] },
+        "clock_in_location": { "type": ["string","null"] },
+        "clock_out_location": { "type": ["string","null"] },
+        "job_id": { "type": ["integer","null"] },
+        "subtask_id": { "type": ["integer","null"] },
+        "type": { "type": ["string","null"] }
+    }
+}

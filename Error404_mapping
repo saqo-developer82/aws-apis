@@ -1,0 +1,8 @@
+#set($inputRoot = $input.path('$'))
+#if($inputRoot != "404") ##Not resource not found but model
+{
+    "message": "Object Not Found"
+}
+#end
+
+application/json

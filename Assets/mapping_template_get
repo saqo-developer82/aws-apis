@@ -1,0 +1,52 @@
+$input.json("$")
+
+#set ($Integer = 0)
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#elseif($Integer.parseInt($limit) > 100)
+  #set($limit = "100")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+
+#set($context.requestOverride.querystring.deleted = "false")
+
+## Searching
+#set($search = $input.params('search'))
+#if($search != $null || $search != "")
+    #set($context.requestOverride.querystring['search'] = $search)
+#end
+## Searching end
+
+## Filters block
+#set($is_template = $input.params('is_template'))
+#if ($is_template == $null)
+  #set($is_template = "false")
+#end
+
+#set($context.requestOverride.querystring["filter[0][action]"] = "where")
+#set($context.requestOverride.querystring["filter[0][attribute]"] = "is_template")
+#set($context.requestOverride.querystring["filter[0][operator]"] = "=")
+#set($context.requestOverride.querystring["filter[0][value]"] = $is_template)
+#set($context.requestOverride.querystring["filter[0][class]"] = "string")
+
+#set($status = $input.params('status'))
+#if ($status != $null)
+    #set($context.requestOverride.querystring["filter[1][action]"] = "where")
+    #set($context.requestOverride.querystring["filter[1][attribute]"] = "status")
+    #set($context.requestOverride.querystring["filter[1][operator]"] = "=")
+    #set($context.requestOverride.querystring["filter[1][value]"] = $status)
+    #set($context.requestOverride.querystring["filter[1][class]"] = "string")
+#end
+## Filters block end
+
+#set($context.requestOverride.querystring['rel[assetCategory]'] = "")
+#set($context.requestOverride.querystring['rel[customer]'] = "")
+#set($context.requestOverride.querystring['rel[maintenanceAgreement]'] = "")
+

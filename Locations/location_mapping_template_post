@@ -1,0 +1,39 @@
+#set($inputRoot = $input.path('$'))
+
+#set($allowedKeys = [
+    'object_type',
+    'object_id',
+    'title',
+    'address_1',
+    'address_2',
+    'city',
+    'state',
+    'zip_code',
+    'notes',
+    'is_main_location',
+    'is_primary_location',
+    'primary_customer_contact_id'
+])
+
+#set($boolean_fields = ["is_main_location","is_primary_location"])
+
+{
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        #if ($key == "object_type")
+            #if($inputRoot.get($key) == 'customer')
+                "$key":"App\\Http\\Api\\Core\\Models\\BaseCustomer"
+            #elseif($inputRoot.get($key) == 'job')
+                "$key":"App\\Http\\Api\\Core\\Models\\Job"
+            #end
+        #else
+        "$key":
+            #if($boolean_fields.contains($key))
+                $inputRoot.get($key)
+            #else
+                "$util.escapeJavaScript($inputRoot.get($key))"
+            #end
+        #end
+    #end#if($foreach.hasNext),#end
+#end
+}

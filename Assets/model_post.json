@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Asset",
+    "type": "object",
+    "properties": {
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "customer_id": { "type": ["integer", "null"] },
+        "job_id": { "type": ["integer", "null"] },
+        "maintenance_agreement_id": { "type": ["integer", "null"] },
+        "asset_category_id": { "type": ["integer","null"] },
+        "asset_type": { "type": "string" },
+        "is_template": { "type": "boolean" },
+        "tag": { "type": "string" },
+        "location": { "type": "string" },
+        "install_date": { "type": "number" },
+        "manufacturer": { "type": "string" },
+        "model": { "type": ["string","null"] },
+        "model_number": { "type": ["string","null"] },
+        "serial_number": { "type": ["string","null"] },
+        "model_year": { "type": ["string","null"] },
+        "model_details": { "type": ["string","null"] },
+        "warranty_expiration": { "type": ["integer","null"] },
+        "warranty_information": { "type": ["string","null"] },
+        "condition": { "type": ["string","null"] },
+        "issues": { "type": ["string","null"] },
+        "notes": { "type": ["string","null"] }
+    }
+}

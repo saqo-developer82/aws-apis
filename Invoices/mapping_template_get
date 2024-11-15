@@ -1,0 +1,58 @@
+$input.json("$")
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($context.requestOverride.querystring.deleted = "false")
+
+## Searching
+#set($search = $input.params('search'))
+#if($search != $null || $search != "")
+    #set($context.requestOverride.querystring['search'] = $search)
+#end
+## Searching End
+
+## Sorting
+#set($allowedSortFields = [
+    "cuid",
+    "status",
+    "invoiced_date",
+    "due_date",
+    "total"
+])
+
+#set($allowedSortDir = [
+    "asc",
+    "desc"
+])
+
+#set($sort_by = $input.params('sort_by'))
+#if ($sort_by == $null || !$allowedSortFields.contains($sort_by))
+  #set($sort_by = "cuid")
+#end
+#set($sort_dir = $input.params('sort_dir'))
+#if ($sort_dir == $null || !$allowedSortDir.contains($sort_dir))
+  #set($sort_dir = "desc")
+#end
+
+#set($context.requestOverride.querystring['sort[0][attribute]'] = $sort_by)
+#set($context.requestOverride.querystring['sort[0][order]'] = $sort_dir)
+## Sorting End
+
+## Fetch invoices, not estimates.
+#set($context.requestOverride.querystring['filter[0][action]'] = "where")
+#set($context.requestOverride.querystring['filter[0][attribute]'] = "status")
+#set($context.requestOverride.querystring['filter[0][operator]'] = "in")
+#set($context.requestOverride.querystring['filter[0][value]'] = "2,3,4,5,6")
+#set($context.requestOverride.querystring['filter[0][class]'] = "int")
+#set($context.requestOverride.querystring['sort[0][attribute]'] = "cuid")
+#set($context.requestOverride.querystring['sort[0][order]'] = "desc")

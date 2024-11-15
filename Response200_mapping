@@ -1,0 +1,6 @@
+{
+    "error": false,
+    "response": $input.json('$.response')
+}
+
+application/json

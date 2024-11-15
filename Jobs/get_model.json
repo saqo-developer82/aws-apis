@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "JobsGet",
+    "type": "object",
+    "properties": {
+        "created_from": { "type": ["integer", "null"] },
+        "created_to": { "type": ["integer", "null"] },
+        "limit": { "type": ["integer", "null"] },
+        "page": { "type": ["integer", "null"] },
+        "search": { "type": ["string", "null"] },
+        "sort_by": { "type": ["string", "null"] },
+        "sort_dir": { "type": ["string", "null"] }
+    }
+}

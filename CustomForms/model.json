@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "CustomForm",
+    "type": "object",
+    "properties": {
+        "name": {},
+        "view_permission": {},
+        "edit_permission": {},
+        "is_active": {},
+        "status_enabled": {},
+        "attach_to_customer": {},
+        "attach_to_invoice": {},
+        "attach_to_job": {},
+        "attach_to_project": {},
+        "attach_to_maintenance_agreement": {},
+        "attach_to_null": {},
+        "fields": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {},
+                    "type": {},
+                    "position": {}
+                }
+            }
+        }
+    }
+}

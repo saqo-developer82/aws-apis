@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Team",
+    "type": "object",
+    "properties": {
+        "title": { "type": "string", "maxLength": 1000 },
+        "description": { "type": "string", "maxLength": 4000 },
+        "members": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+            }
+        },
+        "managers": {
+            "type": "array",
+            "items": {
+                "type": "integer",
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "template_id":9,
+    "status":1,
+    "parent_type":"none",
+    "fields":[
+        {"name":"field 1","position":0,"type":"textarea","value":"Sargis tttttt"},
+        {"name":"field 2","position":1,"type":"textarea","value":"Sargis tttttt 1111"}
+    ]
+}

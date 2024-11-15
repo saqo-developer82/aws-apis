@@ -1,0 +1,28 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Subtask",
+    "type": "object",
+    "required": ["title", "status", "due_date"],
+    "properties": {
+        "title": {},
+        "status": {},
+        "due_date": {},
+        "customer_id": {},
+        "job_id": {},
+        "project_id": {},
+        "recurring_job_id": {},
+        "description": {},
+        "is_template": {},
+        "is_required_for_job": {},
+        "assignments": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "team_id": {},
+                    "user_id": {}
+                }
+            }
+        }
+    }
+}

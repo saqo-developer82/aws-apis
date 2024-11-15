@@ -1,0 +1,32 @@
+#set($inputRoot = $input.path('$'))
+
+#set($allowedKeys = [
+    "template_id",
+    "parent_type",
+    "status",
+    "fields"
+])
+
+#set($objects_array_data_keys = ['fields'])
+
+{
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        "$key":
+        #if($objects_array_data_keys.contains($key))
+            [
+                #foreach($input_data in $inputRoot.get($key))
+                {
+                    #foreach($k in $input_data.keySet())
+                    "$k": "$util.escapeJavaScript($input_data.get($k))"#if($foreach.hasNext),#end
+                    #end
+                }#if($foreach.hasNext),#end
+                #end
+            ]
+        #else
+        ## Output other keys
+        "$util.escapeJavaScript($inputRoot.get($key))"
+        #end
+    #end#if($foreach.hasNext),#end
+#end
+}

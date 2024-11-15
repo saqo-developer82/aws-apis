@@ -1,0 +1,25 @@
+#set($inputRoot = $input.path('$'))
+
+#set($allowedKeys = [
+    "customer_id",
+    "name",
+    "description",
+    "status",
+    "status_id",
+    "status_workflow_id",
+    "start_time",
+    "end_time",
+    "notes",
+    "location",
+    "location_id",
+    "job_notes",
+    "completion_percentage"
+])
+
+{
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+    "$key":"$util.escapeJavaScript($inputRoot.get($key))"
+    #end#if($foreach.hasNext),#end
+#end
+}

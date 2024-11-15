@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Payment",
+    "type": "object",
+    "properties": {
+        "invoice_id": { "type": "integer" },
+        "payment_date": { "type": "number" },
+        "amount": { "type": "number" },
+        "method ": { "type": "string" },
+        "payment_method_id": { "type": ["integer", "null"] },
+        "qbd_discount_account_id": { "type": "integer" },
+        "qbd_discount_amount": { "type": ["string", "null"] },
+        "notes": { "type": "string" },
+        "square_transaction_id": { "type": "string" }
+    }
+}

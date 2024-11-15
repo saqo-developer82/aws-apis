@@ -1,0 +1,66 @@
+$input.json("$")
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($context.requestOverride.querystring.calculate_count = "true")
+
+## Searching
+#set($search = $input.params('search'))
+#if($search != $null || $search != "")
+    #set($context.requestOverride.querystring['search'] = $search)
+#end
+## Searching end
+
+## Sorting
+#set($allowedSortFields = [
+    "created_at",
+    "updated_at"
+])
+#set($allowedSortDir = [
+    "asc",
+    "desc"
+])
+#set($sort_by = $input.params('sort_by'))
+#if ($sort_by == $null)
+  #set($sort_by = "created_at")
+#end
+#if($allowedSortFields.contains($sort_by))
+  #set($context.requestOverride.querystring['sort[0][attribute]'] = $sort_by)
+#end
+#set($sort_dir = $input.params('sort_dir'))
+#if ($sort_dir == $null)
+    #set($sort_dir = "desc")
+#end
+#set($context.requestOverride.querystring['sort[0][order]'] = $sort_dir)
+## Sorting end
+
+## filter by dates
+#set($filter_index = "0")
+#set($created_from = $input.params('created_from'))
+#if($created_from != $null && $created_from != "")
+    #set($context.requestOverride.querystring["filter[$filter_index][action]"] = "where")
+    #set($context.requestOverride.querystring["filter[$filter_index][attribute]"] = "created_at")
+    #set($context.requestOverride.querystring["filter[$filter_index][operator]"] = ">=")
+    #set($context.requestOverride.querystring["filter[$filter_index][value]"] = $created_from)
+    #set($context.requestOverride.querystring["filter[$filter_index][class]"] = "date")
+    #set($filter_index = "1")
+#end
+
+#set($created_to = $input.params('created_to'))
+#if($created_to != $null && $created_to != "")
+    #set($context.requestOverride.querystring["filter[$filter_index][action]"] = "where")
+    #set($context.requestOverride.querystring["filter[$filter_index][attribute]"] = "created_at")
+    #set($context.requestOverride.querystring["filter[$filter_index][operator]"] = "<=")
+    #set($context.requestOverride.querystring["filter[$filter_index][value]"] = $created_to)
+    #set($context.requestOverride.querystring["filter[$filter_index][class]"] = "date")
+#end

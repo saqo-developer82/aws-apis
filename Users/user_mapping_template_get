@@ -1,0 +1,15 @@
+$input.json("$")
+
+#set($limit = $input.params('limit'))
+
+#if ($limit == $null)
+  #set($limit = "100000")
+#end
+
+#set($context.requestOverride.querystring.limit = $limit)
+#set($context.requestOverride.querystring.deleted = false)
+#set($context.requestOverride.querystring.with_settings = true)
+
+#set($context.requestOverride.querystring['rel[members]'] = "")
+#set($context.requestOverride.querystring['rel[managers]'] = "")
+

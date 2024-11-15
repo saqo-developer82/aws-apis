@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "PurchaseOrder",
+    "type": "object",
+    "properties": {
+        "vendor_type": { "type": "string" },
+        "vendor_id": { "type": "integer" },
+        "vendor_name": { "type": "string" },
+        "tax_rate ": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "payment_status": { "type": "string" },
+        "comment": { "type": "string" },
+        "order_at": { "type": "number" },
+        "expected_delivery_at": { "type": "number" },
+        "received_at": { "type": "number" },
+        "customer_id": { "type": ["integer", "null"] },
+        "job_id": { "type": ["integer", "null"] },
+        "project_id": { "type": ["integer", "null"] },
+        "invoice_id": { "type": ["integer", "null"] },
+        "assigned_id": { "type": "integer" },
+        "order_email": { "type": "string" },
+        "delivery_method": { "type": "string" },
+        "delivery_address": { "type": "string" },
+        "delivery_flat": { "type": "string" },
+        "delivery_city": { "type": "string" },
+        "delivery_state": { "type": "string" },
+        "delivery_postcode": { "type": "string" },
+        "delivery_instruction": { "type": "string" },
+        "pickup_branch_id": { "type": "integer"},
+        "order_number": { "type": "string" },
+        "order_phone": { "type": "string" },
+        "items": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "integer" },
+                    "type": { "type": "string" },
+                    "unit_measure": { "type": "string" },
+                    "unit_cost": { "type": "string" },
+                    "is_taxed": { "type": "boolean" },
+                    "tax_rate": { "type": "string" },
+                    "quantity": { "type": "string" },
+                    "payment_status": { "type": "string" }
+                }
+            }
+        }
+    }
+}

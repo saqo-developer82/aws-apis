@@ -1,0 +1,84 @@
+{
+    "customer_id": 1,
+    "project_id": 1,
+    "job_type": "Test Job",
+    "subtitle": "Test Job Subtitle",
+    "status": 1,
+    "status_id": 1,
+    "status_workflow_id": 1,
+    "start_time": 1111111111,
+    "end_time": 1111111111,
+    "due_date": 1111111111,
+    "billing": 1,
+    "notes": "Test Job Notes",
+    "field_notes": "Test Job Field Notes",
+    "location": "Test Job Location",
+    "location_id": 1,
+    "generate_invoice": true,
+    "type": "job",
+    "is_template": false,
+    "in_progress_status_log": 1,
+    "template_id": 1,
+    "hazardco_swms_id": 1,
+    "maintenance_agreement_id": 1,
+    "maintenance_occurrence_id": 1,
+    "recurring_parent_id": 1,
+    "task_category_id": 1,
+    "customer_contact_id": 1,
+    "assignments": [
+        {
+            "team_id": 1,
+            "user_id": 2
+        },
+        {
+            "team_id": 1,
+            "user_id": 3
+        },
+        {
+            "team_id": 1,
+            "user_id": 4
+        }
+
+    ],
+    "customfields": [
+        {
+            "id": 1,
+            "value": "Value 1"
+        },
+        {
+            "id": 2,
+            "value": "Value 2"
+        },
+        {
+            "id": 3,
+            "value": "Value 3"
+        }
+    ],
+    "visits": [
+        {
+            "status": 2,
+            "title": "Visit 1",
+            "subtitle": "Visit 1 subtitle",
+            "is_visible": true,
+            "start_time": 1111111111,
+            "end_time": 1111111111
+        },
+        {
+            "status": 2,
+            "title": "Visit 1",
+            "subtitle": "Visit 1 subtitle",
+            "is_visible": true,
+            "start_time": 1111111111,
+            "end_time": 1111111111
+        },
+        {
+            "status": 2,
+            "title": "Visit 1",
+            "subtitle": "Visit 1 subtitle",
+            "is_visible": true,
+            "start_time": 1111111111,
+            "end_time": 1111111111
+        }
+    ],
+    "tags": [1,2,3]
+}

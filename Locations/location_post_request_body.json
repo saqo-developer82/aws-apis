@@ -1,0 +1,7 @@
+{
+	"object_type":"customer",
+    "object_id":60464,
+    "title":"Test location api",
+    "address_1":"address_1",
+    "city":"city"
+}

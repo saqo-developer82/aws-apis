@@ -1,0 +1,29 @@
+$input.json("$")
+
+#set($page = $input.params('page'))
+#set($limit = $input.params('limit'))
+#set($customer_id = $input.params('customer_id'))
+
+#if ($limit == $null)
+  #set($limit = "50")
+#end
+
+#if ($page == $null)
+  #set($page = "1")
+#end
+
+#set($context.requestOverride.querystring.limit = $limit)
+#set($context.requestOverride.querystring.page = $page)
+#set($context.requestOverride.querystring.calculate_count = true)
+
+#set($context.requestOverride.querystring['sort[0][attribute]'] = "order")
+#set($context.requestOverride.querystring['sort[0][order]'] = "asc")
+
+#if ($customer_id != $null)
+    #set($context.requestOverride.querystring['filter[0][action]'] = "where")
+    #set($context.requestOverride.querystring['filter[0][attribute]'] = "customer_id")
+    #set($context.requestOverride.querystring['filter[0][operator]'] = "=")
+    #set($context.requestOverride.querystring['filter[0][value]'] = $customer_id)
+    #set($context.requestOverride.querystring['filter[0][class]'] = "string")
+#end
+

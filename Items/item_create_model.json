@@ -1,0 +1,95 @@
+{
+    "$schema": "https://json-schema.org/draft-04/schema#",
+    "title": "Item",
+    "type": "object",
+    "required": ["name","default_taxable","type","default_quantity"],
+    "properties": {
+        "name": { "type": "string", "description": "The 'name' must be string." },
+        "default_taxable": { "type": "boolean", "description": "The 'default_taxable' must be boolean." },
+        "default_description": { "type": ["string", "null"], "maxLength": 5000, "description": "The 'default_description' must be string with maximum length 5000." },
+        "type": { "type": "string", "enum": ["service", "product", "reece-item"] },
+        "sku": { "type": ["string", "null"], "maxLength": 255, "description": "The 'sku' must be string with maximum length 255." },
+        "default_unit_price": { "type": "number", "description": "The 'default_unit_price' must be number." },
+        "default_unit_cost": { "type": "number", "description": "The 'default_unit_cost' must be number." },
+        "default_quantity": { "type": "number", "description": "The 'default_quantity' must be number." },
+        "track_inventory": { "type": "boolean", "description": "The 'track_inventory' must be boolean." },
+        "is_active": { "type": "boolean", "description": "The 'is_active' must be boolean." },
+        "xero_sales_account": { "type": "integer", "description": "The 'xero_sales_account' must be integer." },
+        "xero_tax_account": { "type": "integer", "description": "The 'xero_tax_account' must be integer." },
+        "tax_rate": { "type": "string", "maxLength": 1000, "description": "The 'tax_rate' must be string with maximum length 1000." },
+        "vendor_id": { "type": ["integer", "null"], "description": "The 'vendor_id' must be integer." },
+        "vendor_type": { "type": ["string", "null"], "enum": ["integrated", "third_party"] },
+        "vendor_name": { "type": ["string", "null"] },
+        "supplier_item_id": { "type": ["string", "null"] },
+        "is_automatic_replenishment_by_purchase_order_enabled": { "type": ["boolean", "null"], "description": "The 'track_inventory' must be boolean." },
+        "auto_reorder_level": { "type": ["integer", "null"], "description": "The 'auto_reorder_level' must be integer." },
+        "replenishment_level": { "type": ["integer", "null"], "description": "The 'replenishment_level' must be integer." },
+        "minimum_order_quantity": { "type": "number" },
+        "price_update_method": { "type": "string", "enum": ["set_price_manually", "automatic_markup", "use_cmp_pricing"] },
+        "automatic_markup_percentage": { "type": "string" },
+        "inventory_mode": { "type": "string", "enum": ["default", "serialized_inventory"] },
+        "qbo_sales_tax_code_id": { "type": ["integer", "null"], "description": "The 'qbo_sales_tax_code_id' must be integer." },
+        "qbo_purchase_tax_code_id": { "type": ["integer", "null"], "description": "The 'qbo_purchase_tax_code_id' must be integer." },
+        "qbo_income_account_id": { "type": ["integer", "null"], "description": "The 'qbo_income_account_id' must be integer." },
+        "qbo_expense_account_id": { "type": ["integer", "null"], "description": "The 'qbo_expense_account_id' must be integer." },
+        "qbo_asset_account_id": { "type": ["integer", "null"], "description": "The 'qbo_expense_account_id' must be integer." },
+        "qbo_id": { "type": ["integer", "null"], "description": "The 'qbo_id' must be integer." },
+        "quantity_available": { "type": ["string", "null"] },
+        "unit_measure": { "type": ["string", "null"] },
+        "external_id": { "type": ["string", "null"] },
+        "external_type": { "type": ["string", "null"] },
+        "external_sync_status": { "type": ["string", "null"] },
+        "upc": { "type": ["string", "null"] },
+        "inventory_hub_items": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "inventory_hub_id": { "type": "integer", "description": "The 'inventory_hub_items.*.inventory_hub_id' must be integer." },
+                    "is_automatic_replenishment_by_purchase_order_enabled": { "type": "boolean", "description": "The 'inventory_hub_items.*.is_automatic_replenishment_by_purchase_order_enabled' must be boolean." },
+                    "auto_reorder_level": { "type": "number", "description": "The 'inventory_hub_items.*.auto_reorder_level' must be number." },
+                    "replenishment_level": { "type": "number", "description": "The 'inventory_hub_items.*.replenishment_level' must be number." },
+                    "quantity_available": { "type": "number", "description": "The 'inventory_hub_items.*.quantity_available' must be number." }
+                },
+                "required": ["inventory_hub_id", "is_automatic_replenishment_by_purchase_order_enabled", "auto_reorder_level", "replenishment_level", "quantity_available"]
+            },
+            "description": "The 'inventory_hub_items' must be array."
+        },
+        "item_links": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "maxLength": 10000, "description": "The 'item_links.name' must be string with maximum length 5000." },
+                    "url": { "type": "string", "maxLength": 10000, "description": "The 'item_links.url' must be string with maximum length 5000." }
+                },
+                "required": ["name", "url"]
+            },
+            "description": "The 'item_links' must be array."
+        },
+        "serialized_inventories": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "object",
+                "properties": {
+                    "serial_number": { "type": "string", "maxLength": 1000 },
+                    "reference_number": { "type": "string", "maxLength": 1000 },
+                    "asset_template_id": { "type": "integer" },
+                    "invoice_id": { "type": "integer" },
+                    "hub_id": { "type": "integer" },
+                    "id_number": { "type": "string" },
+                    "default_unit_cost": { "type": "string" }
+                },
+                "required": ["serial_number"]
+            },
+            "description": "The 'serialized_inventories' must be array."
+        },
+        "tags": {
+            "type": ["array", "null"],
+            "items": {
+                "type": "integer"
+            },
+            "description": "The 'tags' must be array."
+        }
+    }
+}

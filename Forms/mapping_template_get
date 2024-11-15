@@ -1,0 +1,46 @@
+$input.json("$")
+
+#set ($Integer = 0)
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#elseif($Integer.parseInt($limit) > 100)
+  #set($limit = "100")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+
+#set($context.requestOverride.querystring.deleted = "false")
+
+#set($context.requestOverride.querystring["sort[0][attribute]"] = "cuid")
+#set($context.requestOverride.querystring["sort[0][order]"] = "desc")
+
+#set($template_id = $input.params('template_id'))]
+#set($filter_index = "0")
+#if ($template_id != $null)
+  #set($context.requestOverride.querystring["filter[$filter_index][action]"] = "where")
+  #set($context.requestOverride.querystring["filter[$filter_index][attribute]"] = "template_id")
+  #set($context.requestOverride.querystring["filter[$filter_index][operator]"] = "=")
+  #set($context.requestOverride.querystring["filter[$filter_index][value]"] = $template_id)
+  #set($context.requestOverride.querystring["filter[$filter_index][class]"] = "int")
+  #set($filter_index = "1")
+#end
+
+#set($context.requestOverride.querystring["filter[$filter_index][action]"] = "where")
+#set($context.requestOverride.querystring["filter[$filter_index][attribute]"] = "view_permission")
+#set($context.requestOverride.querystring["filter[$filter_index][operator]"] = "like")
+#set($context.requestOverride.querystring["filter[$filter_index][value]"] = "%1%")
+#set($context.requestOverride.querystring["filter[$filter_index][class]"] = "string")
+
+#set($context.requestOverride.querystring["rel[template]"] = "")
+#set($context.requestOverride.querystring["rel[author]"] = "")
+#set($context.requestOverride.querystring["rel[project]"] = "")
+#set($context.requestOverride.querystring["rel[customer]"] = "")
+#set($context.requestOverride.querystring["rel[invoice]"] = "")
+#set($context.requestOverride.querystring["rel[job]"] = "")
+#set($context.requestOverride.querystring["rel[maintenance_agreement]"] = "")

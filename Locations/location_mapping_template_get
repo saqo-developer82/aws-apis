@@ -1,0 +1,39 @@
+$input.json("$")
+
+#set($page = $input.params('page'))
+#set($object_type = $input.params('object_type'))
+#set($object_id = $input.params('object_id'))
+#set($allowed_types = ['customer','job'])
+#set($filters = [])
+
+#if ($page == $null)
+  #set($page = "1")
+#end
+
+#set($context.requestOverride.querystring.page = $page)
+#set($context.requestOverride.querystring.limit = "50")
+
+#set($context.requestOverride.querystring['sort[0][attribute]'] = "order_index")
+#set($context.requestOverride.querystring['sort[0][order]'] = "asc")
+
+#if ($object_type != $null && $allowed_types.contains($object_type))
+    #if($object_type == "customer" )
+        #set($value = "App\Http\Api\Core\Models\BaseCustomer")
+    #else
+        #set($value = "App\Http\Api\Core\Models\BaseJob")
+    #end
+
+    #set($context.requestOverride.querystring['filter[0][action]'] = "where")
+    #set($context.requestOverride.querystring['filter[0][attribute]'] = "object_type")
+    #set($context.requestOverride.querystring['filter[0][operator]'] = "=")
+    #set($context.requestOverride.querystring['filter[0][value]'] = $value)
+    #set($context.requestOverride.querystring['filter[0][class]'] = "string")
+#end
+
+#if ($object_id != $null)
+    #set($context.requestOverride.querystring['filter[1][action]'] = "where")
+    #set($context.requestOverride.querystring['filter[1][attribute]'] = "object_id")
+    #set($context.requestOverride.querystring['filter[1][operator]'] = "=")
+    #set($context.requestOverride.querystring['filter[1][value]'] = $object_id)
+    #set($context.requestOverride.querystring['filter[1][class]'] = "string")
+#end

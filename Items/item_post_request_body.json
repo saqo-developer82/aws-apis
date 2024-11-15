@@ -1,0 +1,19 @@
+{
+    "name": "Test Item",
+    "default_description": "Item description",
+    "default_quantity": 2,
+    "default_taxable": true,
+    "type": "service",
+    "is_active": true,
+    "qbo_id": 0,
+    "default_unit_cost": 0,
+    "sku": "rg-11111111",
+    "track_inventory": false,
+    "xero_sales_account": null,
+    "xero_tax_account": null,
+    "tax_rate": "15",
+    "external_type": "",
+    "unit_measure": "",
+    "external_id": "",
+    "tags": [1,2,3]
+}

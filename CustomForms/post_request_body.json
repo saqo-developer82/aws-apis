@@ -1,0 +1,17 @@
+{
+    "name":"Sargis test form",
+    "view_permission":"1,2,4",
+    "edit_permission":"1,2,4",
+    "attach_to_job":true,
+    "attach_to_customer":true,
+    "attach_to_invoice":true,
+    "attach_to_null":true,
+    "attach_to_project":true,
+    "attach_to_maintenance_agreement":true,
+    "is_active":true,
+    "status_enabled":false,
+    "fields":[
+        {"name":"field 1","position":0,"type":"textarea"},
+        {"name":"field 2","position":1,"type":"textarea"}
+    ]
+}

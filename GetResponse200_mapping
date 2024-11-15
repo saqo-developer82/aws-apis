@@ -1,0 +1,8 @@
+#set($responseData = $input.json('$.response'))
+#set($results = $input.json('$.results'))
+
+{
+    "error": false,
+    "results": $results
+    "response": $responseData
+}

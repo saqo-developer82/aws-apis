@@ -1,0 +1,46 @@
+$input.json("$")
+
+#set ($Integer = 0)
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#elseif($Integer.parseInt($limit) > 100)
+  #set($limit = "100")
+#end
+#set($context.requestOverride.querystring.limit = $limit)
+
+#set($page = $input.params('page'))
+#if ($page == $null)
+  #set($page = "1")
+#end
+#set($context.requestOverride.querystring.page = $page)
+#set($context.requestOverride.querystring.deleted = "false")
+
+#set($context.requestOverride.querystring['sort[0][attribute]'] = "created_at")
+#set($context.requestOverride.querystring['sort[0][order]'] = "desc")
+
+#set($object_type = $input.params('object_type'))
+#set($object_id = $input.params('object_id'))
+#if ($object_id != $null && $object_type != $null)
+    #if($object_type == "customer") #set($type = "App\Http\Api\Core\Models\BaseCustomer")
+    #elseif($object_type == "job") #set($type = "App\Http\Api\Core\Models\BaseJob")
+    #elseif($object_type == "project") #set($type = "App\Http\Api\Core\Models\BaseProject")
+    #elseif($object_type == "subtasks") #set($type = "App\Http\Api\Core\Models\BaseSubTask")
+    #elseif($object_type == "invoice") #set($type = "App\Http\Api\Core\Models\BaseInvoice")
+    #else #set($type = $object_type)
+    #end
+
+    #set($context.requestOverride.querystring['filter[0][action]'] = "where")
+    #set($context.requestOverride.querystring['filter[0][attribute]'] = "commentable_id")
+    #set($context.requestOverride.querystring['filter[0][operator]'] = "=")
+    #set($context.requestOverride.querystring['filter[0][value]'] = $object_id)
+    #set($context.requestOverride.querystring['filter[0][class]'] = "int")
+
+    #set($context.requestOverride.querystring['filter[1][action]'] = "where")
+    #set($context.requestOverride.querystring['filter[1][attribute]'] = "commentable_type")
+    #set($context.requestOverride.querystring['filter[1][operator]'] = "=")
+    #set($context.requestOverride.querystring['filter[1][value]'] = $type)
+    #set($context.requestOverride.querystring['filter[1][class]'] = "string")
+#end
+
+#set($context.requestOverride.querystring['rel[author]'] = "")
