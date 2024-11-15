@@ -1,0 +1,147 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+
+#set($allowedKeys = [
+    'is_template',
+    'title',
+    'notes',
+    'tax_rate',
+    'due_date',
+    'invoiced_date',
+    'author_id',
+    'location_id',
+    'contract_id',
+    'commission_type',
+    'commission_percent',
+    'invoice_use_logo',
+    'invoice_show_line_item_unit_price',
+    'invoice_show_line_item_qty',
+    'invoice_show_line_item_taxed',
+    'invoice_show_line_item_total',
+    'invoice_show_line_item_desc',
+    'invoice_show_line_item_sku',
+    'invoice_show_total_tax',
+    'invoice_show_job_title',
+    'invoice_show_job_location',
+    'invoice_show_assigned_members',
+    'invoice_show_author',
+    'invoice_show_service_address',
+    'invoice_contract_signature_lines',
+    'invoice_amount_due_display_type',
+    'invoice_amount_due_display_value',
+    'invoice_pdf_title',
+    'estimate_status',
+    'theme_id',
+    'internal_notes',
+    'reference',
+    'hvi',
+    'company_profile_id',
+    'maintenance_agreement_id',
+    'maintenance_occurrence_id',
+    'occurrence_date',
+    'job_id',
+    'customer_id',
+    'display_settings',
+    'expenses',
+    'options',
+    'add_on_options',
+    'line_items',
+    'optional_line_items',
+    'not_optional_line_items'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+#set($line_items_keys = ['line_items','optional_line_items','not_optional_line_items'])
+#set($array_input_data_keys = ['expenses','options','add_on_options'])
+#set($object_input_data_keys = ['display_settings'])
+#set($boolean_fields = ['show_payment_button','show_signature_button','show_company_title','is_customer_phone_visible','is_modified_customer','is_selected','is_optional'])
+#set($int_fields = ['author_id','location_id','contract_id','theme_id','company_profile_id','maintenance_agreement_id','maintenance_occurrence_id','job_id','customer_id'])
+
+{
+    #foreach($key in $output.keySet())
+    "$key":
+        #if($line_items_keys.contains($key))
+        [
+            #foreach($line_item in $output.get($key))
+            {
+                #foreach($line_item_key in $line_item.keySet())
+                "$line_item_key":
+                    #if($line_item_key == 'line_components')
+                    [
+                        #foreach($line_component in $line_item.line_components)
+                        {
+                            #foreach($line_component_key in $line_component.keySet())
+                            "$line_component_key":
+                                #if($boolean_fields.contains($line_component_key))
+                                    $line_component.get($line_component_key)
+                                #else
+                                    "$util.escapeJavaScript($line_component.get($line_component_key))"
+                                #end
+                            #if($foreach.hasNext),#end
+                            #end
+                        }
+                        #if($foreach.hasNext),#end
+                    #end
+                    ]
+                    #else
+                        #if($boolean_fields.contains($line_item_key))
+                            $line_item.get($line_item_key)
+                        #else
+                            "$util.escapeJavaScript($line_item.get($line_item_key))"
+                        #end
+                    #end
+                #if($foreach.hasNext),#end
+                #end
+            }
+            #if($foreach.hasNext),#end
+            #end
+        ]
+        #elseif($array_input_data_keys.contains($key))
+        [
+            #foreach($input_data in $output.get($key))
+            {
+                #foreach($k in $input_data.keySet())
+                "$k":
+                    #if($boolean_fields.contains($k))
+                        $input_data.get($k)
+                    #else
+                        "$util.escapeJavaScript($input_data.get($k))"
+                    #end
+                #if($foreach.hasNext),#end
+                #end
+            }
+            #if($foreach.hasNext),#end
+            #end
+        ]
+        #elseif($object_input_data_keys.contains($key))
+        {
+            #foreach($k in $output.get($key).keySet())
+            "$k":
+                #if($boolean_fields.contains($k))
+                    $output.get($key).get($k)
+                #else
+                    "$util.escapeJavaScript($output.get($key).get($k))"
+                #end
+            #if($foreach.hasNext),#end
+            #end
+        }
+        #else
+            #if($boolean_fields.contains($key))
+                $output.get($key)
+            #else
+                #if($int_fields.contains($key))
+                $util.escapeJavaScript($output.get($key))
+                #else
+                "$util.escapeJavaScript($output.get($key))"
+                #end
+            #end
+        #end
+    #if($foreach.hasNext),#end
+    #end,
+    "status": 1
+}

@@ -1,0 +1,29 @@
+#set($inputRoot = $input.path('$'))
+
+{
+"line_items": [
+    #foreach($line_item in $inputRoot.get("line_items"))
+    {
+        #foreach($line_item_key in $line_item.keySet())
+        "$line_item_key": #if($line_item_key == 'line_components')
+            [
+                #foreach($line_component in $line_item.get("line_components"))
+                    {
+                        #foreach($line_component_key in $line_component.keySet())
+                        "$line_component_key": "$util.escapeJavaScript($line_component.get($line_component_key))"
+                        #if($foreach.hasNext),#end
+                        #end
+                    }
+                    #if($foreach.hasNext),#end
+                #end
+            ]
+            #else
+            "$util.escapeJavaScript($line_item.get($line_item_key))"
+            #end
+            #if($foreach.hasNext),#end
+        #end
+    }
+    #if($foreach.hasNext),#end
+    #end
+]
+}

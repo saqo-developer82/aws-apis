@@ -1,0 +1,86 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+#set($objects_array_data_keys = ['inventory_hub_items','item_links','serialized_inventories'])
+#set($array_data_keys = ['tags'])
+#set($int_fields = ['vendor_id','qbo_sales_tax_code_id','qbo_purchase_tax_code_id','qbo_income_account_id','qbo_expense_account_id','qbo_asset_account_id'])
+
+#set($allowedKeys = [
+    "name",
+    "default_taxable",
+    "default_description",
+    "type",
+    "sku",
+    "default_unit_price",
+    "default_unit_cost",
+    "default_quantity",
+    "track_inventory",
+    "is_active",
+    "xero_sales_account",
+    "xero_tax_account",
+    "tax_rate",
+    "vendor_id",
+    "vendor_type",
+    "vendor_name",
+    "supplier_item_id",
+    "is_automatic_replenishment_by_purchase_order_enabled",
+    "auto_reorder_level",
+    "replenishment_level",
+    "minimum_order_quantity",
+    "price_update_method",
+    "automatic_markup_percentage",
+    "inventory_mode",
+    "qbo_sales_tax_code_id",
+    "qbo_purchase_tax_code_id",
+    "qbo_income_account_id",
+    "qbo_expense_account_id",
+    "qbo_asset_account_id",
+    "qbo_id",
+    "quantity_available",
+    "unit_measure",
+    "external_id",
+    "external_type",
+    "external_sync_status",
+    "upc",
+    "inventory_mode",
+    "inventory_hub_items",
+    "item_links",
+    "serialized_inventories",
+    "tags"
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":
+        #if($objects_array_data_keys.contains($key))
+            [
+                #foreach($input_data in $output.get($key))
+              {
+                    #foreach($k in $input_data.keySet())
+                    "$k": "$util.escapeJavaScript($input_data.get($k))"#if($foreach.hasNext),#end
+                    #end
+                }#if($foreach.hasNext),#end
+                #end
+            ]
+        #elseif($array_data_keys.contains($key))
+            [
+                #foreach($input_data in $output.get($key))
+                "$util.escapeJavaScript($input_data)"#if($foreach.hasNext),#end
+                #end
+            ]
+        #else
+            ## Output other keys
+            #if($int_fields.contains($key))
+            $util.escapeJavaScript($output.get($key))
+            #else
+            "$util.escapeJavaScript($output.get($key))"
+            #end
+        #end
+    #if($foreach.hasNext),#end
+#end
+}

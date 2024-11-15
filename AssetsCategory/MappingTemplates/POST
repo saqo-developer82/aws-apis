@@ -1,0 +1,20 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+
+#set($allowedKeys = [
+    'title'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":"$util.escapeJavaScript($output.get($key))"
+    #if($foreach.hasNext),#end
+#end
+}
+

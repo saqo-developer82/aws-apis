@@ -1,0 +1,49 @@
+#set($inputRoot = $input.path('$'))
+#set($objects_array_data_keys = ['assignments'])
+#set($output = {})
+#set($int_fields = ['customer_id','job_id','project_id','recurring_job_id'])
+
+#set($allowedKeys = [
+    "title",
+    "status",
+    "due_date",
+    "customer_id",
+    "job_id",
+    "project_id",
+    "recurring_job_id",
+    "description",
+    "is_template",
+    "is_required_for_job",
+    "assignments"
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":
+        #if($objects_array_data_keys.contains($key))
+            [
+                #foreach($input_data in $output.get($key))
+                {
+                    #foreach($k in $input_data.keySet())
+                    "$k": "$util.escapeJavaScript($input_data.get($k))"#if($foreach.hasNext),#end
+                    #end
+                }#if($foreach.hasNext),#end
+                #end
+            ]
+        #else
+            ## Output other keys
+            #if($int_fields.contains($key))
+            $util.escapeJavaScript($output.get($key))
+            #else
+            "$util.escapeJavaScript($output.get($key))"
+            #end
+        #end
+    #if($foreach.hasNext),#end
+#end
+}

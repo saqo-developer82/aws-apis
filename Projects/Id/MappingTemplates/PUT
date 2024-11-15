@@ -1,0 +1,36 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+#set($int_fields = ['customer_id','status','status_id','status_workflow_id','location_id'])
+
+#set($allowedKeys = [
+    "customer_id",
+    "name",
+    "description",
+    "status",
+    "status_id",
+    "status_workflow_id",
+    "start_time",
+    "end_time",
+    "notes",
+    "location",
+    "location_id",
+    "job_notes",
+    "completion_percentage"
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":#if($int_fields.contains($key))
+        $util.escapeJavaScript($output.get($key))
+        #else
+        "$util.escapeJavaScript($output.get($key))"
+        #end
+    #if($foreach.hasNext),#end
+#end
+}

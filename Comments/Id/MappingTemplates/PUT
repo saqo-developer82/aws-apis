@@ -1,0 +1,27 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+#set($int_fields = ['commentable_id'])
+
+#set($allowedKeys = [
+    'text',
+    'commentable_id',
+    'commentable_type'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":
+    #if($int_fields.contains($key))
+    $util.escapeJavaScript($output.get($key))
+    #else
+    "$util.escapeJavaScript($output.get($key))"
+    #end
+    #if($foreach.hasNext),#end
+#end
+}

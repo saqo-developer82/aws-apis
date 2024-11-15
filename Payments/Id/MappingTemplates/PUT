@@ -1,0 +1,30 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+#set($int_fields = ['invoice_id','payment_method_id'])
+
+#set($allowedKeys = [
+    'invoice_id',
+    'payment_date',
+    'amount',
+    'method',
+    'payment_method_id',
+    'notes',
+    'square_transaction_id'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key": #if($int_fields.contains($key))
+            $util.escapeJavaScript($output.get($key))
+            #else
+            "$util.escapeJavaScript($output.get($key))"
+            #end
+    #if($foreach.hasNext),#end
+#end
+}

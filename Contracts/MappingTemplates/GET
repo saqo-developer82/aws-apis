@@ -1,0 +1,20 @@
+$input.json("$")
+
+#set($limit = $input.params('limit'))
+
+#set ($Integer = 0)
+#set($limit = $input.params('limit'))
+#if ($limit == $null)
+  #set($limit = "20")
+#elseif($Integer.parseInt($limit) > 100)
+  #set($limit = "100")
+#end
+
+#set($context.requestOverride.querystring.limit = $limit)
+#set($context.requestOverride.querystring.deleted = "false")
+
+
+#set($calculate_count = $input.params('calculate_count'))
+#if($calculate_count == 'true')
+  #set($context.requestOverride.querystring['calculate_count'] = "true")
+#end
