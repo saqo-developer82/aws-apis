@@ -1,0 +1,97 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+
+#set($allowedKeys = [
+    'first_name',
+    'last_name',
+    'display_name',
+    'email',
+    'phone',
+    'zip_code',
+    'address_1',
+    'address_2',
+    'state',
+    'city',
+    'notes',
+    'has_different_billing_address',
+    'status',
+    'company_name',
+    'alt_email',
+    'billing_address_1',
+    'billing_address_2',
+    'billing_city',
+    'billing_state',
+    'assigned_to',
+    'billing_zip_code',
+    'secondary_email',
+    'secondary_phone',
+    'service_address_1',
+    'service_address_2',
+    'service_address_city',
+    'service_address_state',
+    'service_address_zip_code',
+    'job_notes',
+    'customfields',
+    'display_name',
+    'locations'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+## Logic for display_name
+#if((!$output.containsKey('display_name') || $output.get('display_name') == '') &&
+    ($output.containsKey('first_name') && $output.get('first_name') != '' ||
+     $output.containsKey('last_name') && $output.get('last_name') != ''))
+    #set($displayName = '')
+    #if($output.containsKey('first_name') && $output.get('first_name') != '')
+        #set($displayName = $output.get('first_name'))
+    #end
+    #if($output.containsKey('last_name') && $output.get('last_name') != '')
+        #if($displayName != '')
+            #set($displayName = $displayName + ' ')
+        #end
+        #set($displayName = $displayName + $output.get('last_name'))
+    #end
+    $output.put('display_name', $displayName)
+#end
+
+{
+#foreach($key in $output.keySet())
+    "$key":
+    #if($key == 'customfields')
+        ## Output for customfields
+        [
+        #foreach($customfield in $output.get($key))
+            {
+                "id": "$customfield.id",
+                "value": "$customfield.value"
+            }
+            #if($foreach.hasNext),#end
+        #end
+        ]
+    #elseif($key == 'locations')
+        ## Output for locations
+        [
+        #foreach($location in $output.get($key))
+            {
+                "object_type": "customer",
+                "object_id": "$null",
+                #foreach($location_key in $location.keySet())
+                    "$location_key": "$util.escapeJavaScript($location.get($location_key))"
+                    #if($foreach.hasNext),#end
+                #end
+            }
+            #if($foreach.hasNext),#end
+        #end
+        ]
+    #else
+        ## Output other keys
+        "$util.escapeJavaScript($output.get($key))"
+    #end
+    #if($foreach.hasNext),#end
+#end
+}

@@ -1,0 +1,4 @@
+#foreach($param in $input.params().querystring.keySet())
+    #set($value = $util.urlDecode($input.params().querystring.get($param)))
+    #set($context.requestOverride.querystring[$param] = $value)
+#end

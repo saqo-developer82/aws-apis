@@ -1,0 +1,37 @@
+#set($inputRoot = $input.path('$'))
+#set($output = {})
+#set($int_fields = ['field_widget_id'])
+
+#set($allowedKeys = [
+    'name',
+    'position',
+    'permission',
+    'is_active',
+    'object',
+    'can_customer_view',
+    'field_widget_id',
+    'settings'
+])
+
+#foreach($key in $inputRoot.keySet())
+    #if($allowedKeys.contains($key))
+        $output.put($key, $inputRoot.get($key))
+    #end
+#end
+
+#set($boolean_fields = ['is_active','can_customer_view'])
+{
+#foreach($key in $output.keySet())
+    "$key":
+        #if($boolean_fields.contains($key))
+            $output.get($key)
+        #else
+            #if($int_fields.contains($key))
+            $util.escapeJavaScript($output.get($key))
+            #else
+            "$util.escapeJavaScript($output.get($key))"
+            #end
+        #end
+        #if($foreach.hasNext),#end
+#end
+}

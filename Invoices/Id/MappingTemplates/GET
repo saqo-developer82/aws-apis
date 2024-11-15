@@ -1,0 +1,3 @@
+$input.json("$")
+
+#set($context.requestOverride.querystring['rel[job][assignments][user]'] = "")

@@ -1,0 +1,11 @@
+$input.json("$")
+
+#set($context.requestOverride.querystring['rel[customer]'] = "")
+#set($context.requestOverride.querystring['rel[assignments]'] = "")
+#set($context.requestOverride.querystring['rel[entityLocation]'] = "")
+#set($context.requestOverride.querystring['rel[customerContact]'] = "")
+
+#set($with_custom_fields = $input.params('with_custom_fields'))
+#if($with_custom_fields == 'true')
+  #set($context.requestOverride.querystring['withCustomfieldsAndRelatedData'] = "true")
+#end
