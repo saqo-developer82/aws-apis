@@ -1,1 +1,1 @@
-Here you can find APIs in AWS API Gateway
+Here you can find  used APIs in AWS API Gateway
